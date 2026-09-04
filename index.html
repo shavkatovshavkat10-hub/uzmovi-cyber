@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UzMovi Cyber - Zamonaviy Kinolar Platformasi</title>
+  <meta name="description" content="UzMovi Cyber - Cyberpunk uslubidagi zamonaviy kino portal. Eng so'nggi va ommabop kinolar, treylerlar, O'zbek va Rus tillarida.">
+  <meta name="theme-color" content="#0B0F19">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Ambient Liquid Glow Background Orbs -->
+  <div class="ambient-orb orb-1"></div>
+  <div class="ambient-orb orb-2"></div>
+  <div class="ambient-orb orb-3"></div>
+
+  <!-- Header Navigation -->
+  <header class="navbar" id="navbar">
+    <div class="nav-container">
+      <!-- Logo -->
+      <a href="#" class="logo" id="logoBtn">
+        <div class="logo-icon"><i class="fa-solid fa-clapperboard"></i></div>
+        <div class="logo-text">
+          <span class="logo-brand">UZMOVI</span>
+          <span class="logo-cyber">CYBER</span>
+        </div>
+      </a>
+
+      <!-- Desktop Nav Links -->
+      <nav class="nav-links">
+        <a href="#" class="nav-link active" data-category="popular" id="navPopular">
+          <i class="fa-solid fa-fire"></i> <span data-i18n="popular">Ommabop</span>
+        </a>
+        <a href="#" class="nav-link" data-category="top_rated" id="navTopRated">
+          <i class="fa-solid fa-star"></i> <span data-i18n="topRated">Eng saralari</span>
+        </a>
+        <a href="#" class="nav-link" data-category="upcoming" id="navUpcoming">
+          <i class="fa-solid fa-film"></i> <span data-i18n="upcoming">Tez kunda</span>
+        </a>
+        <a href="#" class="nav-link" data-category="favorites" id="navFavorites">
+          <i class="fa-solid fa-heart"></i> <span data-i18n="favorites">Sevilganlar</span>
+          <span class="fav-count-badge" id="favBadge">0</span>
+        </a>
+      </nav>
+
+      <!-- Search & Controls -->
+      <div class="nav-right">
+        <!-- Live Search Box -->
+        <div class="search-box">
+          <i class="fa-solid fa-magnifying-glass search-icon"></i>
+          <input type="text" id="searchInput" class="search-input" placeholder="Kino, serial qidirish..." autocomplete="off">
+          <button id="clearSearchBtn" class="clear-search-btn hidden"><i class="fa-solid fa-xmark"></i></button>
+          
+          <!-- Auto-suggest Dropdown -->
+          <div id="searchDropdown" class="search-dropdown hidden">
+            <div id="searchDropdownResults" class="search-results-list"></div>
+          </div>
+        </div>
+
+        <!-- Language Selector -->
+        <button id="langToggleBtn" class="lang-toggle-btn" title="Tilni almashtirish / Сменить язык">
+          <i class="fa-solid fa-globe"></i>
+          <span id="currentLangLabel">UZ</span>
+        </button>
+
+        <!-- Mobile Menu Toggle -->
+        <button id="mobileMenuBtn" class="mobile-menu-btn">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Navigation Drawer -->
+    <div id="mobileDrawer" class="mobile-drawer hidden">
+      <a href="#" class="mobile-link active" data-category="popular">
+        <i class="fa-solid fa-fire"></i> <span data-i18n="popular">Ommabop</span>
+      </a>
+      <a href="#" class="mobile-link" data-category="top_rated">
+        <i class="fa-solid fa-star"></i> <span data-i18n="topRated">Eng saralari</span>
+      </a>
+      <a href="#" class="mobile-link" data-category="upcoming">
+        <i class="fa-solid fa-film"></i> <span data-i18n="upcoming">Tez kunda</span>
+      </a>
+      <a href="#" class="mobile-link" data-category="favorites">
+        <i class="fa-solid fa-heart"></i> <span data-i18n="favorites">Sevilganlar</span>
+      </a>
+    </div>
+  </header>
+
+  <main class="main-content">
+    <!-- Hero Slider Banner -->
+    <section class="hero-section" id="heroSection">
+      <div class="hero-backdrop" id="heroBackdrop"></div>
+      <div class="hero-overlay"></div>
+      
+      <div class="hero-container">
+        <div class="hero-content" id="heroContent">
+          <div class="hero-badge"><i class="fa-solid fa-bolt"></i> <span id="heroBadgeText">TOP KINO</span></div>
+          <h1 class="hero-title" id="heroTitle">Yuklanmoqda...</h1>
+          
+          <div class="hero-meta">
+            <span class="hero-rating"><i class="fa-solid fa-star"></i> <strong id="heroRating">0.0</strong></span>
+            <span class="hero-year" id="heroYear">2026</span>
+            <span class="hero-quality">4K ULTRA HD</span>
+            <span class="hero-genres" id="heroGenres">Janrlar</span>
+          </div>
+
+          <p class="hero-overview" id="heroOverview">Kino haqida qisqacha ma'lumot yuklanmoqda...</p>
+
+          <div class="hero-actions">
+            <button class="btn btn-primary" id="heroWatchBtn">
+              <i class="fa-solid fa-play"></i> <span data-i18n="watchTrailer">Treylerni ko'rish</span>
+            </button>
+            <button class="btn btn-glass" id="heroDetailsBtn">
+              <i class="fa-solid fa-circle-info"></i> <span data-i18n="details">Batafsil</span>
+            </button>
+            <button class="btn btn-icon" id="heroFavBtn" title="Saqlash">
+              <i class="fa-regular fa-heart"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Hero Carousel Dots -->
+        <div class="hero-controls">
+          <button class="hero-nav-btn prev" id="heroPrevBtn"><i class="fa-solid fa-chevron-left"></i></button>
+          <div class="hero-dots" id="heroDots"></div>
+          <button class="hero-nav-btn next" id="heroNextBtn"><i class="fa-solid fa-chevron-right"></i></button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Genre & Filter Bar -->
+    <section class="filter-section container">
+      <div class="section-header">
+        <div class="section-title-wrap">
+          <h2 class="section-title" id="gridSectionTitle">
+            <i class="fa-solid fa-compass title-icon"></i>
+            <span id="gridTitleText" data-i18n="popularMovies">Ommabop Kinolar</span>
+          </h2>
+          <span class="results-count" id="resultsCount">0 ta kino</span>
+        </div>
+
+        <!-- Sort Select Box -->
+        <div class="sort-wrapper">
+          <label for="sortSelect" class="sort-label"><i class="fa-solid fa-arrow-down-short-wide"></i> <span data-i18n="sortBy">Saralash:</span></label>
+          <select id="sortSelect" class="glass-select">
+            <option value="popularity.desc" data-i18n="sortPopularity">Ommabopligi bo'yicha</option>
+            <option value="vote_average.desc" data-i18n="sortRating">Reytingi bo'yicha</option>
+            <option value="primary_release_date.desc" data-i18n="sortDate">Chiqish sanasi bo'yicha</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Genres Pills Carousel -->
+      <div class="genre-bar-wrapper">
+        <button class="genre-scroll-btn left" id="genreScrollLeft"><i class="fa-solid fa-chevron-left"></i></button>
+        <div class="genre-bar" id="genreBar">
+          <button class="genre-pill active" data-id="all" data-i18n="allGenres">Barcha Janrlar</button>
+          <!-- Dynamic genres populated via JS -->
+        </div>
+        <button class="genre-scroll-btn right" id="genreScrollRight"><i class="fa-solid fa-chevron-right"></i></button>
+      </div>
+    </section>
+
+    <!-- Movie Grid -->
+    <section class="movies-section container">
+      <div class="movie-grid" id="movieGrid">
+        <!-- Skeleton Loaders -->
+      </div>
+
+      <!-- Empty / No Results State -->
+      <div id="emptyState" class="empty-state hidden">
+        <div class="empty-icon"><i class="fa-solid fa-film"></i></div>
+        <h3 class="empty-title" data-i18n="noMoviesFound">Hech qanday kino topilmadi</h3>
+        <p class="empty-desc" data-i18n="noMoviesDesc">Boshqa so'z bilan qidirib ko'ring yoki janr filtrini o'zgartiring.</p>
+        <button id="resetFilterBtn" class="btn btn-glass" data-i18n="resetFilters">Filtrlarni tozalash</button>
+      </div>
+
+      <!-- Load More Button -->
+      <div class="load-more-wrapper">
+        <button id="loadMoreBtn" class="btn btn-glass-glow btn-large">
+          <span data-i18n="loadMore">Yana ko'proq yuklash</span>
+          <i class="fa-solid fa-spinner fa-spin loader-spinner hidden" id="loadSpinner"></i>
+        </button>
+      </div>
+    </section>
+  </main>
+
+  <!-- Movie Detail Modal -->
+  <div id="detailModal" class="modal-overlay hidden">
+    <div class="glass-modal modal-detail-content">
+      <button class="modal-close-btn" id="closeDetailModalBtn"><i class="fa-solid fa-xmark"></i></button>
+
+      <div class="detail-backdrop-wrap">
+        <div class="detail-backdrop" id="detailBackdrop"></div>
+        <div class="detail-backdrop-mask"></div>
+      </div>
+
+      <div class="detail-body">
+        <div class="detail-poster-wrap">
+          <img id="detailPoster" src="" alt="Poster" class="detail-poster">
+          <div class="detail-poster-badge" id="detailRatingBadge"><i class="fa-solid fa-star"></i> 8.5</div>
+        </div>
+
+        <div class="detail-info">
+          <h2 class="detail-title" id="detailTitle">Kino Nomi</h2>
+          <div class="detail-original-title" id="detailOriginalTitle">Original Title</div>
+
+          <div class="detail-tags">
+            <span class="tag-pill tag-year" id="detailYear">2026</span>
+            <span class="tag-pill tag-runtime" id="detailRuntime"><i class="fa-solid fa-clock"></i> 2s 15m</span>
+            <span class="tag-pill tag-status" id="detailStatus">Released</span>
+          </div>
+
+          <div class="detail-genres" id="detailGenres"></div>
+
+          <p class="detail-overview" id="detailOverview">Kino tavsifi...</p>
+
+          <div class="detail-actions">
+            <button class="btn btn-primary" id="detailPlayTrailerBtn">
+              <i class="fa-solid fa-play"></i> <span data-i18n="watchTrailer">Treylerni ko'rish</span>
+            </button>
+            <button class="btn btn-glass" id="detailFavBtn">
+              <i class="fa-regular fa-heart"></i> <span data-i18n="addToFav">Saqlab qo'yish</span>
+            </button>
+          </div>
+
+          <!-- Cast Section -->
+          <div class="detail-cast-section">
+            <h3 class="sub-heading" data-i18n="actors">Bosh rollarda</h3>
+            <div class="cast-list" id="detailCastList"></div>
+          </div>
+
+          <!-- Similar Movies -->
+          <div class="detail-similar-section">
+            <h3 class="sub-heading" data-i18n="similarMovies">O'xshash kinolar</h3>
+            <div class="similar-grid" id="detailSimilarGrid"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Video Player Modal -->
+  <div id="videoModal" class="modal-overlay hidden">
+    <div class="glass-modal modal-video-content">
+      <div class="video-modal-header">
+        <div class="video-title-wrap">
+          <i class="fa-solid fa-circle-play video-header-icon"></i>
+          <h3 id="videoModalTitle" class="video-modal-title">Kino Treyleri</h3>
+        </div>
+        <button class="modal-close-btn" id="closeVideoModalBtn"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+
+      <!-- Server Selector Tabs -->
+      <div class="server-tabs">
+        <button class="server-tab active" data-server="youtube">
+          <i class="fa-brands fa-youtube"></i> YouTube Trailer HD
+        </button>
+        <button class="server-tab" data-server="videocdn">
+          <i class="fa-solid fa-server"></i> UzMovi HD Server
+        </button>
+      </div>
+
+      <!-- Player Frame Container -->
+      <div class="video-container" id="videoContainer">
+        <div id="videoLoadingSpinner" class="video-loader">
+          <i class="fa-solid fa-spinner fa-spin"></i>
+          <p data-i18n="videoLoading">Video pleyer yuklanmoqda...</p>
+        </div>
+        <iframe id="videoIframe" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div id="toastContainer" class="toast-container"></div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-content">
+      <div class="footer-logo">
+        <i class="fa-solid fa-clapperboard"></i> UZMOVI <span>CYBER</span>
+      </div>
+      <p class="footer-desc" data-i18n="footerText">
+        UzMovi Cyber - Barcha sevimli kinolaringiz bir joyda. TMDB API asosida ishlaydi.
+      </p>
+      <div class="footer-credits">
+        © 2026 UzMovi Cyber Architecture. Barcha huquqlar himoyalangan.
+      </div>
+    </div>
+  </footer>
+
+  <!-- Main JavaScript App -->
+  <script src="app.js"></script>
+</body>
+</html>
