@@ -11,7 +11,8 @@ const I18N = {
     upcomingMovies: "Tez Kunda Chiqadigan Kinolar",
     favoriteMovies: "Sevilgan Kinolar",
     searchResults: "Qidiruv natijalari",
-    watchTrailer: "Treylerni ko'rish",
+    watchTrailer: "Tomosha qilish",
+    watchMovie: "Kinoni tomosha qilish",
     details: "Batafsil",
     sortBy: "Saralash:",
     sortPopularity: "Ommabopligi bo'yicha",
@@ -32,13 +33,10 @@ const I18N = {
     removedFavToast: "Kino sevilganlardan o'chirildi",
     langChangedToast: "Til O'zbekchaga almashtirildi",
     videoLoading: "Video pleyer yuklanmoqda...",
-    noTrailerFound: "Kechirasiz, ushbu kino uchun treyler topilmadi.",
+    noTrailerFound: "Kechirasiz, ushbu kino uchun video topilmadi.",
     runtimeUnit: "s",
     minUnit: "d",
     topBadge: "TOP KINO",
-    youtubeTrailer: "YouTube Treyler (HD)",
-    server1: "UzMovi HD Server 1",
-    server2: "UzMovi HD Server 2",
     footerText: "UzMovi Cyber - Barcha sevimli kinolaringiz bir joyda. TMDB API va React 18 asosida ishlaydi."
   },
   'ru-RU': {
@@ -51,7 +49,8 @@ const I18N = {
     upcomingMovies: "Скоро на экранах",
     favoriteMovies: "Избранные фильмы",
     searchResults: "Результаты поиска",
-    watchTrailer: "Смотреть трейлер",
+    watchTrailer: "Смотреть фильм",
+    watchMovie: "Смотреть фильм",
     details: "Подробнее",
     sortBy: "Сортировка:",
     sortPopularity: "По популярности",
@@ -72,13 +71,10 @@ const I18N = {
     removedFavToast: "Фильм удален из избранного",
     langChangedToast: "Язык изменен на русский",
     videoLoading: "Загрузка видеоплеера...",
-    noTrailerFound: "К сожалению, трейлер для этого фильма не найден.",
+    noTrailerFound: "К сожалению, видео для этого фильма не найдено.",
     runtimeUnit: "ч",
     minUnit: "мин",
     topBadge: "ТОП ФИЛЬМ",
-    youtubeTrailer: "YouTube Трейлер (HD)",
-    server1: "UzMovi HD Сервер 1",
-    server2: "UzMovi HD Сервер 2",
     footerText: "UzMovi Cyber - Все ваши любимые фильмы в одном месте. Работает на TMDB API и React 18."
   }
 };
@@ -96,7 +92,7 @@ export function AppProvider({ children }) {
   });
 
   const [toasts, setToasts] = useState([]);
-  const [activeVideoModal, setActiveVideoModal] = useState({ open: false, movie: null, youtubeKey: null });
+  const [activeVideoModal, setActiveVideoModal] = useState({ open: false, movie: null });
   const [activeDetailModal, setActiveDetailModal] = useState({ open: false, movieId: null });
 
   useEffect(() => {
@@ -153,12 +149,12 @@ export function AppProvider({ children }) {
     setActiveDetailModal({ open: false, movieId: null });
   };
 
-  const openVideoModal = (movie, youtubeKey = null) => {
-    setActiveVideoModal({ open: true, movie, youtubeKey });
+  const openVideoModal = (movie) => {
+    setActiveVideoModal({ open: true, movie });
   };
 
   const closeVideoModal = () => {
-    setActiveVideoModal({ open: false, movie: null, youtubeKey: null });
+    setActiveVideoModal({ open: false, movie: null });
   };
 
   return (

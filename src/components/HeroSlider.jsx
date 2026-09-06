@@ -13,7 +13,6 @@ export default function HeroSlider({ genresMap }) {
       const data = await fetchFromTMDB('/movie/popular', { page: 1 }, lang);
       if (data && data.results && data.results.length > 0 && isMounted) {
         const top5 = data.results.slice(0, 5);
-        // Enhance Uzbek descriptions if needed
         const enhanced = await Promise.all(top5.map((m) => enhanceMovieData(m, lang)));
         setHeroMovies(enhanced);
         setCurrentIndex(0);
@@ -50,15 +49,8 @@ export default function HeroSlider({ genresMap }) {
 
   const fav = isFavorite(currentMovie.id);
 
-  const handleWatchTrailer = async () => {
-    // Fetch video key from TMDB
-    const videoData = await fetchFromTMDB(`/movie/${currentMovie.id}/videos`, {}, lang);
-    let youtubeKey = null;
-    if (videoData && videoData.results && videoData.results.length > 0) {
-      const trailer = videoData.results.find((v) => v.site === 'YouTube' && (v.type === 'Trailer' || v.type === 'Teaser')) || videoData.results[0];
-      if (trailer) youtubeKey = trailer.key;
-    }
-    openVideoModal(currentMovie, youtubeKey);
+  const handleWatchMovie = () => {
+    openVideoModal(currentMovie);
   };
 
   return (
@@ -90,8 +82,8 @@ export default function HeroSlider({ genresMap }) {
           </p>
 
           <div className="hero-actions">
-            <button className="btn btn-primary" onClick={handleWatchTrailer}>
-              <i className="fa-solid fa-play"></i> <span>{t('watchTrailer')}</span>
+            <button className="btn btn-primary" onClick={handleWatchMovie}>
+              <i className="fa-solid fa-play"></i> <span>{t('watchMovie')}</span>
             </button>
             <button className="btn btn-glass" onClick={() => openDetailModal(currentMovie.id)}>
               <i className="fa-solid fa-circle-info"></i> <span>{t('details')}</span>

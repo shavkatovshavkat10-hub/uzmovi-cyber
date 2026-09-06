@@ -62,15 +62,9 @@ export default function MovieDetailModal() {
     runtimeText = `${hrs}${t('runtimeUnit')} ${mins}${t('minUnit')}`;
   }
 
-  const handlePlayTrailer = async () => {
+  const handlePlayMovie = () => {
     closeDetailModal();
-    const videoData = await fetchFromTMDB(`/movie/${movieId}/videos`, {}, lang);
-    let youtubeKey = null;
-    if (videoData && videoData.results && videoData.results.length > 0) {
-      const trailer = videoData.results.find((v) => v.site === 'YouTube' && (v.type === 'Trailer' || v.type === 'Teaser')) || videoData.results[0];
-      if (trailer) youtubeKey = trailer.key;
-    }
-    openVideoModal(movie, youtubeKey);
+    openVideoModal(movie);
   };
 
   return (
@@ -126,8 +120,8 @@ export default function MovieDetailModal() {
                 <p className="detail-overview">{movie.overview || t('noMoviesDesc')}</p>
 
                 <div className="detail-actions">
-                  <button className="btn btn-primary" onClick={handlePlayTrailer}>
-                    <i className="fa-solid fa-play"></i> <span>{t('watchTrailer')}</span>
+                  <button className="btn btn-primary" onClick={handlePlayMovie}>
+                    <i className="fa-solid fa-play"></i> <span>{t('watchMovie')}</span>
                   </button>
                   <button className="btn btn-glass" onClick={() => toggleFavorite(movie)}>
                     <i className={`${fav ? 'fa-solid' : 'fa-regular'} fa-heart`}></i>{' '}

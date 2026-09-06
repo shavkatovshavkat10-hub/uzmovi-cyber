@@ -3,15 +3,14 @@ import { useApp } from '../context/AppContext';
 
 export default function VideoPlayerModal() {
   const { t, activeVideoModal, closeVideoModal } = useApp();
-  const [activeServer, setActiveServer] = useState('uzmovi');
+  const [activeServer, setActiveServer] = useState('server1');
   const [iframeLoading, setIframeLoading] = useState(true);
 
-  const { open, movie, youtubeKey } = activeVideoModal;
+  const { open, movie } = activeVideoModal;
 
   useEffect(() => {
     if (open) {
-      // Default to UzMovi HD Server (full movie) when opening
-      setActiveServer('uzmovi');
+      setActiveServer('server1');
       setIframeLoading(true);
     }
   }, [open]);
@@ -19,15 +18,10 @@ export default function VideoPlayerModal() {
   if (!open || !movie) return null;
 
   let streamUrl = '';
-  if (activeServer === 'youtube') {
-    if (youtubeKey) {
-      streamUrl = `https://www.youtube-nocookie.com/embed/${youtubeKey}?autoplay=1&rel=0&modestbranding=1`;
-    } else {
-      streamUrl = '';
-    }
-  } else if (activeServer === 'uzmovi') {
-    // Clean full movie embed stream
-    streamUrl = `https://vidsrc.me/embed/movie?tmdb=${movie.id}`;
+  if (activeServer === 'server1') {
+    streamUrl = `https://vidsrc.cc/v2/embed/movie/${movie.id}`;
+  } else if (activeServer === 'server2') {
+    streamUrl = `https://autoembed.co/movie/tmdb/${movie.id}`;
   }
 
   return (
@@ -37,7 +31,7 @@ export default function VideoPlayerModal() {
           <div className="video-title-wrap">
             <i className="fa-solid fa-circle-play video-header-icon"></i>
             <h3 className="video-modal-title">
-              {movie.title || movie.original_title} - {t('watchTrailer')}
+              {movie.title || movie.original_title}
             </h3>
           </div>
           <button className="modal-close-btn" onClick={closeVideoModal}>
@@ -45,19 +39,19 @@ export default function VideoPlayerModal() {
           </button>
         </div>
 
-        {/* Server Selector Tabs (Restored to exact initial design) */}
+        {/* Full Movie Server Tabs (No YouTube) */}
         <div className="server-tabs">
           <button
-            className={`server-tab ${activeServer === 'youtube' ? 'active' : ''}`}
-            onClick={() => { setActiveServer('youtube'); setIframeLoading(true); }}
+            className={`server-tab ${activeServer === 'server1' ? 'active' : ''}`}
+            onClick={() => { setActiveServer('server1'); setIframeLoading(true); }}
           >
-            <i className="fa-brands fa-youtube"></i> <span>YouTube Trailer HD</span>
+            <i className="fa-solid fa-server"></i> <span>UzMovi HD Server 1</span>
           </button>
           <button
-            className={`server-tab ${activeServer === 'uzmovi' ? 'active' : ''}`}
-            onClick={() => { setActiveServer('uzmovi'); setIframeLoading(true); }}
+            className={`server-tab ${activeServer === 'server2' ? 'active' : ''}`}
+            onClick={() => { setActiveServer('server2'); setIframeLoading(true); }}
           >
-            <i className="fa-solid fa-server"></i> <span>UzMovi HD Server</span>
+            <i className="fa-solid fa-film"></i> <span>UzMovi HD Server 2</span>
           </button>
         </div>
 
@@ -69,7 +63,7 @@ export default function VideoPlayerModal() {
               <p>{t('videoLoading')}</p>
             </div>
           )}
-          {streamUrl ? (
+          {streamUrl && (
             <iframe
               key={streamUrl}
               src={streamUrl}
@@ -77,12 +71,7 @@ export default function VideoPlayerModal() {
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
               onLoad={() => setIframeLoading(false)}
-              sandbox="allow-scripts allow-same-origin allow-presentation allow-forms"
             ></iframe>
-          ) : (
-            <div style={{ padding: '60px 20px', textAlign: 'center', color: 'var(--text-muted)' }}>
-              {t('noTrailerFound')}
-            </div>
           )}
         </div>
       </div>
