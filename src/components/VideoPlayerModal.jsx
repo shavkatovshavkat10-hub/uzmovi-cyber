@@ -3,27 +3,31 @@ import { useApp } from '../context/AppContext';
 
 export default function VideoPlayerModal() {
   const { t, activeVideoModal, closeVideoModal } = useApp();
-  const [activeServer, setActiveServer] = useState('youtube');
+  const [activeServer, setActiveServer] = useState('uzmovi');
   const [iframeLoading, setIframeLoading] = useState(true);
 
   const { open, movie, youtubeKey } = activeVideoModal;
 
   useEffect(() => {
     if (open) {
-      setActiveServer(youtubeKey ? 'youtube' : 'uzmovi1');
+      // Default to UzMovi HD Server (full movie) when opening
+      setActiveServer('uzmovi');
       setIframeLoading(true);
     }
-  }, [open, youtubeKey]);
+  }, [open]);
 
   if (!open || !movie) return null;
 
   let streamUrl = '';
-  if (activeServer === 'youtube' && youtubeKey) {
-    streamUrl = `https://www.youtube-nocookie.com/embed/${youtubeKey}?autoplay=1&rel=0&modestbranding=1`;
-  } else if (activeServer === 'uzmovi1') {
-    streamUrl = `https://vidsrc.cc/v2/embed/movie/${movie.id}`;
-  } else if (activeServer === 'uzmovi2') {
-    streamUrl = `https://autoembed.co/movie/tmdb/${movie.id}`;
+  if (activeServer === 'youtube') {
+    if (youtubeKey) {
+      streamUrl = `https://www.youtube-nocookie.com/embed/${youtubeKey}?autoplay=1&rel=0&modestbranding=1`;
+    } else {
+      streamUrl = '';
+    }
+  } else if (activeServer === 'uzmovi') {
+    // Clean full movie embed stream
+    streamUrl = `https://vidsrc.me/embed/movie?tmdb=${movie.id}`;
   }
 
   return (
@@ -41,25 +45,19 @@ export default function VideoPlayerModal() {
           </button>
         </div>
 
-        {/* Server Selector Tabs */}
+        {/* Server Selector Tabs (Restored to exact initial design) */}
         <div className="server-tabs">
           <button
             className={`server-tab ${activeServer === 'youtube' ? 'active' : ''}`}
             onClick={() => { setActiveServer('youtube'); setIframeLoading(true); }}
           >
-            <i className="fa-brands fa-youtube"></i> <span>{t('youtubeTrailer')}</span>
+            <i className="fa-brands fa-youtube"></i> <span>YouTube Trailer HD</span>
           </button>
           <button
-            className={`server-tab ${activeServer === 'uzmovi1' ? 'active' : ''}`}
-            onClick={() => { setActiveServer('uzmovi1'); setIframeLoading(true); }}
+            className={`server-tab ${activeServer === 'uzmovi' ? 'active' : ''}`}
+            onClick={() => { setActiveServer('uzmovi'); setIframeLoading(true); }}
           >
-            <i className="fa-solid fa-film"></i> <span>{t('server1')}</span>
-          </button>
-          <button
-            className={`server-tab ${activeServer === 'uzmovi2' ? 'active' : ''}`}
-            onClick={() => { setActiveServer('uzmovi2'); setIframeLoading(true); }}
-          >
-            <i className="fa-solid fa-server"></i> <span>{t('server2')}</span>
+            <i className="fa-solid fa-server"></i> <span>UzMovi HD Server</span>
           </button>
         </div>
 
